@@ -1,0 +1,3 @@
+company_name,country,registration_number,tax_id,gstin,bank_account_holder,account_number,ifsc,email,documents
+Northstar Components Pvt Ltd,India,U12345TG2023PTC123456,DEFGA4567J,36DEFGA4567J1Z5,Northstar Components Pvt Ltd,123456789012,SBIN0001234,finance@northstar.example,company_registration;tax_certificate;bank_proof
+Riverbend Analytics,India,U12345TG2022PTC123457,EFGAB5678K,36EFGAB5678K1Z5,Riverbend Analytics,123456789012,SBIN0001234,accounts@riverbend.example,company_registration;bank_proof

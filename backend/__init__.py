@@ -1,0 +1,1 @@
+"""VendorGuard backend package."""

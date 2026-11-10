@@ -1,0 +1,11 @@
+services:
+  vendorguard:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./storage:/app/storage
+    environment:
+      - VENDORGUARD_DB=/app/storage/vendorguard.db
+      - VENDORGUARD_UPLOADS=/app/storage/uploads
+    restart: unless-stopped

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VendorGuard — Vendor onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">V</div><div><b>VendorGuard</b><small>PROCUREMENT OPERATIONS</small></div></div>
+    <div class="nav-label">WORKSPACE</div>
+    <button class="nav-item active" data-view="dashboard"><span>▦</span> Overview</button>
+    <button class="nav-item" data-view="vendors"><span>▤</span> Vendor register</button>
+    <button class="nav-item" data-view="new"><span>＋</span> New submission</button>
+    <div class="side-bottom"><div class="secure-icon">⌑</div><b>Secure workflow</b><p>Decisions are explainable. Every review is recorded.</p><span class="version">V 1.0.0 · LOCAL INSTANCE</span></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div><div class="eyebrow">PROCUREMENT / <span id="crumb">OVERVIEW</span></div><h1 id="page-title">Vendor overview</h1></div><div class="top-actions"><span class="system-status"><i></i> System operational</span><button class="btn btn-dark" id="header-new">＋ New vendor</button></div></header>
+    <section id="dashboard-view" class="view">
+      <div class="welcome-row"><div><h2>Good evening.</h2><p>Here’s what’s happening across your vendor onboarding pipeline.</p></div><button class="btn btn-outline" id="refresh">↻ Refresh data</button></div>
+      <div class="metric-grid">
+        <div class="metric-card"><div class="metric-top"><span>Total submissions</span><span class="metric-icon">▤</span></div><strong id="m-total">0</strong><small>All onboarding runs</small></div>
+        <div class="metric-card"><div class="metric-top"><span>Approved</span><span class="metric-icon green">✓</span></div><strong id="m-approved">0</strong><small>Passed configured checks</small></div>
+        <div class="metric-card"><div class="metric-top"><span>Pending review</span><span class="metric-icon amber">◷</span></div><strong id="m-pending">0</strong><small>Action required</small></div>
+        <div class="metric-card"><div class="metric-top"><span>Rejected</span><span class="metric-icon red">×</span></div><strong id="m-rejected">0</strong><small>Disqualifying issue / reviewer decision</small></div>
+      </div>
+      <div class="content-grid">
+        <section class="panel table-panel"><div class="panel-head"><div><h3>Recent submissions</h3><p>Latest vendor onboarding activity</p></div><button class="text-btn" id="view-all">View all →</button></div><div class="table-wrap"><table><thead><tr><th>VENDOR</th><th>SUBMITTED</th><th>CHECKS</th><th>STATUS</th><th></th></tr></thead><tbody id="recent-table"><tr><td colspan="5" class="empty">Loading submissions…</td></tr></tbody></table></div></section>
+        <section class="panel pipeline-panel"><div class="panel-head"><div><h3>Pipeline health</h3><p>Current status distribution</p></div><span class="live-pill"><i></i> LIVE</span></div><div class="donut-wrap"><div class="donut" id="donut"><div><b id="donut-total">0</b><small>SUBMISSIONS</small></div></div></div><div class="legend"><div><i class="lg-green"></i> Approved <b id="l-approved">0</b></div><div><i class="lg-amber"></i> Pending <b id="l-pending">0</b></div><div><i class="lg-red"></i> Rejected <b id="l-rejected">0</b></div><div><i class="lg-gray"></i> Processing <b id="l-processing">0</b></div></div></section>
+      </div>
+      <div class="bottom-row"><div class="tip-card"><div class="tip-icon">✦</div><div><b>Make every decision traceable</b><p>Open any submission to see its validation checks, supporting evidence, and complete processing timeline.</p></div></div><button class="btn btn-outline" id="seed-demo">Load demo submissions</button><a class="btn btn-outline" href="/api/export.csv">↓ Export history</a></div>
+    </section>
+
+    <section id="vendors-view" class="view hidden"><div class="toolbar"><div class="search-box">⌕ <input id="search" placeholder="Search vendors…"></div><select id="status-filter"><option value="">All statuses</option><option>APPROVED</option><option>PENDING</option><option>REJECTED</option><option>PROCESSING</option></select><button class="btn btn-outline" id="csv-import">↑ Import CSV</button><input type="file" id="csv-file" accept=".csv" hidden><a class="btn btn-outline" href="/api/export.csv">↓ Export CSV</a></div><section class="panel"><div class="table-wrap"><table><thead><tr><th>VENDOR</th><th>RUN ID</th><th>SUBMITTED</th><th>VALIDATION</th><th>STATUS</th><th></th></tr></thead><tbody id="all-table"></tbody></table></div></section></section>
+
+    <section id="new-view" class="view hidden"><div class="form-layout"><section class="panel form-panel"><div class="panel-head"><div><h3>Vendor information</h3><p>Enter details exactly as shown on official documents.</p></div><span class="step-tag">STEP 01 / 02</span></div><form id="vendor-form">
+      <div class="form-section"><h4>Company details</h4><div class="field-grid"><label class="span-2">Legal company name <em>*</em><input name="company_name" required placeholder="e.g. Aster Engineering Pvt Ltd"></label><label>Country <em>*</em><select name="country"><option>India</option><option>United States</option><option>United Kingdom</option><option>Singapore</option><option>Other</option></select></label><label>Registration number <em>*</em><input name="registration_number" required placeholder="Company registration ID"></label><label>PAN / Tax ID <em>*</em><input name="tax_id" required placeholder="ABCDE1234F"></label><label>GSTIN<input name="gstin" placeholder="15-character GSTIN"></label><label class="span-2">Business email<input type="email" name="email" placeholder="accounts@company.com"></label></div></div>
+      <div class="form-section"><h4>Banking information</h4><div class="field-grid"><label class="span-2">Bank account holder name <em>*</em><input name="bank_account_holder" required placeholder="Name registered with the bank"></label><label>Account number <em>*</em><input name="account_number" required inputmode="numeric" placeholder="Bank account number"></label><label>IFSC code <em>*</em><input name="ifsc" required placeholder="ABCD0123456"></label></div></div>
+      <div class="form-section"><h4>Supporting documents</h4><p class="helper">Attach PDF or image files. PDF text extraction is enabled; OCR for scanned images is not enabled in this MVP. Filename hints categorize evidence.</p><div class="upload-zone" id="drop-zone"><input id="documents" type="file" multiple accept=".pdf,.png,.jpg,.jpeg" hidden><div class="upload-symbol">↑</div><b>Drop documents here or <button type="button" class="inline-link" id="browse">browse files</button></b><small>PDF, PNG, JPG · Maximum 10 MB per file · Up to 10 files</small><div id="file-list" class="file-list"></div></div><div class="doc-checks"><label><input type="checkbox" name="doc_company" value="company_registration"> Company registration</label><label><input type="checkbox" name="doc_tax" value="tax_certificate"> Tax certificate</label><label><input type="checkbox" name="doc_bank" value="bank_proof"> Bank proof</label></div></div>
+      <div class="form-footer"><span><em>*</em> Required fields</span><button class="btn btn-dark" type="submit" id="submit-btn">Run verification <span>→</span></button></div>
+    </form></section><aside class="panel side-info"><div class="info-icon">◎</div><h3>What happens next?</h3><div class="info-step"><b>01 · Extract</b><p>We parse the submitted fields and extract text from supported PDFs.</p></div><div class="info-step"><b>02 · Validate</b><p>Completeness, tax formats, banking formats, name consistency, and duplicates are checked.</p></div><div class="info-step"><b>03 · Decide</b><p>A deterministic rules engine produces an explainable status and next steps.</p></div><div class="disclaimer">This tool performs configured format and consistency checks. It does not independently authenticate government records or bank-account ownership.</div></aside></div></section>
+
+    <section id="detail-view" class="view hidden"><div class="detail-back"><button class="text-btn" id="back-list">← Back to submissions</button><span id="detail-created"></span></div><div id="detail-content"></div></section>
+    <section id="run-view" class="view hidden"><div class="run-header"><div><span class="eyebrow">ONBOARDING RUN</span><h2 id="run-company">Processing vendor</h2><p id="run-id"></p></div><span class="status-badge processing" id="run-status">PROCESSING</span></div><div class="run-grid"><section class="panel"><div class="panel-head"><div><h3>Execution timeline</h3><p>Live events from the backend workflow</p></div><span class="live-pill" id="run-live"><i></i> RUNNING</span></div><div id="timeline" class="timeline"></div></section><section class="panel result-panel"><div class="panel-head"><div><h3>Decision summary</h3><p>Updates when processing completes</p></div></div><div id="run-result" class="result-placeholder"><div class="loader"></div><b>Evaluating submission</b><p>Validation results will appear here.</p></div></section></div></section>
+  </main>
+</div>
+<div id="toast" class="toast"></div>
+<script src="/static/app.js"></script>
+</body></html>

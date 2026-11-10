@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: vendorguard
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: "10000"
+      - key: VENDORGUARD_DB
+        value: /app/storage/vendorguard.db
+      - key: VENDORGUARD_UPLOADS
+        value: /app/storage/uploads
